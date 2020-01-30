@@ -1,15 +1,15 @@
 const user = {
-  name: "Mango",
+  name: 'Mango',
   age: 20,
-  hobby: "html",
-  premium: true
+  hobby: 'html',
+  premium: true,
 };
 
-user.mood = "happy";
+user.mood = 'happy';
 
 // console.log(Object.entries(user));
 
-user.hobby = "skydiving";
+user.hobby = 'skydiving';
 user.premium = false;
 
 const keys = Object.keys(user);

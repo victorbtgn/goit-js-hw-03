@@ -7,6 +7,8 @@ const Transaction = {
   WITHDRAW: 'withdraw',
 };
 
+const { DEPOSIT, WITHDRAW } = Transaction;
+
 /*
  * Каждая транзакция это объект со свойствами: id, type и amount
  */
@@ -50,7 +52,7 @@ const account = {
       return console.log(`Укажите сумму больше ноля!`);
     }
     this.balance += amount;
-    this.createTransaction(amount, 'deposit');
+    this.createTransaction(amount, DEPOSIT);
     return;
   },
 
@@ -71,7 +73,7 @@ const account = {
       return console.log(`На вашем счету недостаточно средств!`);
     }
     this.balance -= amount;
-    this.createTransaction(amount, 'withdraw');
+    this.createTransaction(amount, WITHDRAW);
     return;
   },
 
@@ -85,7 +87,18 @@ const account = {
   /*
    * Метод ищет и возвращает объект транзации по id
    */
-  getTransactionDetails(id) {},
+  getTransactionDetails(id) {
+    let idTransaction;
+    for (const transaction of this.transactions) {
+      const values = Object.values(transaction);
+      for (const value of values) {
+        if (value === id) {
+          idTransaction = transaction;
+        }
+      }
+    }
+    return idTransaction;
+  },
 
   /*
    * Метод возвращает количество средств

@@ -1,3 +1,5 @@
+console.log(`Task 7`);
+
 /*
  * Типов транзацкий всего два.
  * Можно положить либо снять деньги со счета.
@@ -38,7 +40,7 @@ const account = {
       type: type,
       id: generateId(),
     };
-    this.transactions.push(obj);
+    return obj;
   },
 
   /*
@@ -52,7 +54,7 @@ const account = {
       return console.log(`Укажите сумму больше ноля!`);
     }
     this.balance += amount;
-    this.createTransaction(amount, DEPOSIT);
+    this.transactions.push(this.createTransaction(amount, DEPOSIT));
     return;
   },
 
@@ -73,7 +75,7 @@ const account = {
       return console.log(`На вашем счету недостаточно средств!`);
     }
     this.balance -= amount;
-    this.createTransaction(amount, WITHDRAW);
+    this.transactions.push(this.createTransaction(amount, WITHDRAW));
     return;
   },
 
@@ -90,11 +92,8 @@ const account = {
   getTransactionDetails(id) {
     let idTransaction;
     for (const transaction of this.transactions) {
-      const values = Object.values(transaction);
-      for (const value of values) {
-        if (value === id) {
-          idTransaction = transaction;
-        }
+      if (transaction.id === id) {
+        idTransaction = transaction;
       }
     }
     return idTransaction;
@@ -107,11 +106,8 @@ const account = {
   getTransactionTotal(type) {
     let total = 0;
     for (const transaction of this.transactions) {
-      const values = Object.values(transaction);
-      for (const value of values) {
-        if (value === type) {
-          total += transaction.amount;
-        }
+      if (transaction.type === type) {
+        total += transaction.amount;
       }
     }
     return `Всего по ${type}: ${total} кредитов.`;
